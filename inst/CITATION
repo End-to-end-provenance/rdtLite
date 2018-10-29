@@ -1,0 +1,10 @@
+bibentry(bibtype = "Article",
+              title = "Using Introspection to Collect Provenance in {R}",
+              author = c(person("Barbara", "Lerner"),
+                         person("Emery", "Boose"),
+                         person("Luis", "Perez")),
+              year = "2018",
+              journal = "Informatics",
+              url = "http://www.mdpi.com/2227-9709/5/1/12/htm",
+              number = "12",
+              volume = "5")
