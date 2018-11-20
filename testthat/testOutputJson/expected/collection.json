@@ -1,6 +1,0 @@
-,
-			"prov:type": {
-				"$": "prov:Collection",
-				"type": "xsd:QName"
-			}
-		}
