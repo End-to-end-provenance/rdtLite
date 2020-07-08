@@ -590,8 +590,8 @@
   #print ("In .ddg.data.node")
   #print(paste(".ddg.data.node: dname =", dname))
   #print(paste(".ddg.data.node: str(dvalue) =", utils::str(dvalue)))
-  #print(paste(".ddg.data.node: dvalue =", dvalue))
-  #print(paste(".ddg.data.node: dscope =", dscope))
+#  print(paste(".ddg.data.node: dvalue =", dvalue))
+#  print(paste(".ddg.data.node: dscope =", dscope))
   
   # Get scope if necessary.
   if (is.null(dscope)) dscope <- .ddg.get.scope(dname)
@@ -902,7 +902,7 @@
   
   # Record in data node table
   .ddg.record.data(dtype, dname, dpfile, dpfile, dscope, from.env=FALSE, 
-                   dtime=.ddg.timestamp(), file.loc)
+                   dtime=.ddg.format.time( file.info(file.loc)$mtime ), file.loc)
   
   # Get path plus file name to where the file will be copied
   dpath <- paste(.ddg.path.data(), "/", dfile, sep="")

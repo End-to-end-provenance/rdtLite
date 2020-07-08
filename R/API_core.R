@@ -47,7 +47,6 @@
   if (!.ddg.script.mode()) {
     .ddg.set("ddg.r.script.path", "console.R")
     .ddg.set("ddg.details", TRUE)
-    .ddg.store.console.info ()
   }
 
   # Get R script path
@@ -89,6 +88,7 @@
   # completes execution and build the corresponding portions of the 
   # provenance graph.
   } else {
+    .ddg.store.console.info ()
     .ddg.set("ddg.markdown.output", NULL)
     .ddg.set("ddg.console.commands", vector())
     
@@ -161,7 +161,7 @@
     if (prov.dir == ".") {
       base.dir <- getwd()
     } else {
-      base.dir <- normalizePath(prov.dir)
+      base.dir <- normalizePath(prov.dir, winslash = "/", mustWork = TRUE)
     }
   } 
   
@@ -172,14 +172,14 @@
       if (prov.dir.option == ".") {
         base.dir <- getwd()
       } else {
-        base.dir <- normalizePath(getOption("prov.dir"))
+        base.dir <- normalizePath(getOption("prov.dir"), winslash = "/", mustWork = TRUE)
       }
     } 
     
     # R session temporary directory
     else {
       # Normalize path
-      base.dir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+      base.dir <- normalizePath(tempdir(), winslash = "/", mustWork = TRUE)
     }
   }
   
