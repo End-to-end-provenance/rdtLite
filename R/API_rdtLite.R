@@ -1,5 +1,6 @@
 # Copyright (C) President and Fellows of Harvard College and 
-# Trustees of Mount Holyoke College, 2014, 2015, 2016, 2017, 2018.
+# Trustees of Mount Holyoke College, 2014, 2015, 2016, 2017, 2018,
+# 2019, 2020, 2021, 2022.
 
 # This program is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -77,6 +78,8 @@
 prov.init <- function(prov.dir = NULL, overwrite = TRUE, snapshot.size = 0, 
   hash.algorithm = "md5", save.debug = FALSE) {
   
+  #print ("In prov.init")
+  
   if (.ddg.is.set("ddg.initialized") && .ddg.get ("ddg.initialized") == TRUE) {
     stop ("Provenance collection is already started.  
           Call prov.quit() to stop the current collection before starting a new one.")
@@ -94,6 +97,7 @@ prov.init <- function(prov.dir = NULL, overwrite = TRUE, snapshot.size = 0,
   
   # If this function was not called from prov.run, save arguments
   if(!.ddg.is.set("ddg.run.args")) {
+    #print ("Saving arguments")
     args.names <- c("overwrite", "snapshot.size", "save.debug")
     args.types <- c("logical", "numeric", "logical")
     
@@ -105,10 +109,14 @@ prov.init <- function(prov.dir = NULL, overwrite = TRUE, snapshot.size = 0,
   }
   
   # Initialize list of input & output file nodes
+  #print ("Initializing file nodes")
   .ddg.init.filenodes ()
 
   # Intialize provenance graph
+  #print ("initializing prov graph")
   .ddg.init(prov.dir, overwrite, save.debug)
+  
+  #print ("prov.init returning")
 }
 
 #' prov.save
@@ -366,13 +374,19 @@ prov.visualize <- function () {
 #' provenance directory
 #' @param create.zip if true all of the provenance data will be packaged up
 #'   into a zip file stored in the current working directory.
+#' @param details if true, a more detailed summary is provided
+#' @param check	if true, the user's file system is checked to see if input 
+#'   files, output files, and scripts (in their original locations) are unchanged, 
+#'   changed, or missing.
+#' @param console if true, the summary is displayed in the console
+#' @param notes if true, notes are included to explain how to interpret the summary
 #' 
 #' @export
 #' @rdname prov.json
 
-prov.summarize <- function (save=FALSE, create.zip=FALSE) {
+prov.summarize <- function (save=FALSE, create.zip=FALSE, details=FALSE, check=TRUE, console=TRUE, notes=TRUE) {
   if (requireNamespace ("provSummarizeR", quietly=TRUE)) {
-  	provSummarizeR::prov.summarize(save, create.zip)
+  	provSummarizeR::prov.summarize(save=save, create.zip=create.zip, details=details, check=check, console=console, notes=notes)
   }
   else {
   	cat ("You need to install the provSummarizeR package to use this function.")
